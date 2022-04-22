@@ -787,6 +787,7 @@ function Library:CreateWindow(Data)
 
             --// Box
             function Section:Box(Data)
+		local Box = {}
                 Data.Value = LoadedSettings[Data.Flag] or Data.Value;
                 Library.Flags[Data.Flag] = Data.Value;
 
@@ -855,7 +856,7 @@ function Library:CreateWindow(Data)
                     pcall(Data.Callback, LoadedSettings[Data.Flag]);
                 end
                 
-                function Data:Update(NewData)
+                function Box:Update(NewData)
                   InputObject.Text = NewData.Text;
                   Data.Text = NewData.Text;
                   if NewData.Callback then
@@ -864,7 +865,7 @@ function Library:CreateWindow(Data)
                   pcall(NewData.Callback,Data.Text)
                 end
                 
-                return Data
+                return Box
             end;
 
             --// Slider
