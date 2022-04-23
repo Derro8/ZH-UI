@@ -741,7 +741,6 @@ function Library:CreateWindow(Data)
                 });
 
                 function Toggle:Update(NewData)
-		   task.spawn(function()
 		    if NewData.Text then
 			ToggleObject.TextLabel.Text = NewData.Text;
                     end
@@ -761,7 +760,6 @@ function Library:CreateWindow(Data)
                         });
                         ToggleObject.ToggleBackFrame.ToggleSlider:TweenPosition(UDim2.new(-0.02, 0, -0.25, 0), "Out", "Quad", 0.5, true);
                     end
-		  end)
                 end;
 
                 ToggleObject.MouseButton1Click:Connect(function()
@@ -809,7 +807,7 @@ function Library:CreateWindow(Data)
                     Library:Create("UICorner", {
                         CornerRadius = UDim.new(0, 3);
                     });
-                    Library:Create("TextLabel", {
+                local LabelObject = Library:Create("TextLabel", {
                         BackgroundColor3 = Color3.fromRGB(255, 255, 255);
                         BackgroundTransparency = 1.000;
                         Position = UDim2.new(0.0347003154, 0, 0, 0);
@@ -861,7 +859,7 @@ function Library:CreateWindow(Data)
                 
                 function Box:Update(NewData)
 		  if NewData.Text then
-                     BoxObject.Text = NewData.Text;
+                     LabelObject.Text = NewData.Text;
                   end
 		  if NewData.Value then
 		     Library.Flags[Data.Flag] = NewData.Value;
