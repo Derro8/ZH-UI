@@ -1351,6 +1351,7 @@ function Library:CreateWindow(Data)
                     local Bar = ColorPickerObject.BrightnessSlider;
 					
 		    if NewData.Text then
+		    Data.Text = NewData.Text
                     ColorPickerObject.TextLabel.Text = NewData.Text;
 		    end
 		    	
@@ -1365,7 +1366,8 @@ function Library:CreateWindow(Data)
                         Bar.UIGradient.Color = ColorSeq;
                         Library.Flags[Data.Flag] = NewData.Color;
                         ColorPickerObject.OutputColor.BackgroundColor3 = NewData.Color;
-                    else
+                    end
+		    if NewData.Location then
                         local Range = (NewData.Location - Bar.AbsolutePosition.X) / Bar.AbsoluteSize.X
                         local Percent = math.clamp(Range, 0, 1);
 
