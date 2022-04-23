@@ -1122,7 +1122,9 @@ function Library:CreateWindow(Data)
                 });
 
                 function Dropdown:Update(NewData)
-                    DropdownObject.Text = NewData.Text;
+		    if NewData.Text then
+                       DropdownObject.Text = NewData.Text;
+		    end
                     if NewData.Callback then
                         Data.Callback = NewData.Callback;
                     end;
@@ -1131,6 +1133,7 @@ function Library:CreateWindow(Data)
                             v:Destroy();
                         end;
                     end;
+		    if NewData.List then
                     for i,v in pairs(NewData.List) do
                         local Button = Library:Create("TextButton", {
                             Text = v;
@@ -1157,6 +1160,7 @@ function Library:CreateWindow(Data)
                             pcall(Data.Callback, Library.Flags[Data.Flag]);
                         end);
                     end
+		  end
                 end;
 
                 Dropdown:Update({
