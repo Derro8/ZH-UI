@@ -741,7 +741,7 @@ function Library:CreateWindow(Data)
                 });
 
                 function Toggle:Update(NewData)
-                    ToggleObject.TextLabel.Text = NewData.Text;
+                    ToggleObject:WaitForChild("TextLabel").Text = NewData.Text;
                     Library.Flags[Data.Flag] = NewData.State
                     if NewData.Callback then
                         Data.Callback = NewData.Callback;
