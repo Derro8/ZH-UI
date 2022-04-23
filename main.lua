@@ -971,31 +971,32 @@ function Library:CreateWindow(Data)
                     if NewData.Callback then
                         Data.Callback = NewData.Callback;
                     end;
+		    if NewData.Min and NewData.Max then
+                       local Bar = SliderObject.SliderBack
 
-                    local Bar = SliderObject.SliderBack
+                       local Min, Max = NewData.Min, NewData.Max;
 
-                    local Min, Max = NewData.Min, NewData.Max;
+                       local Range = (Mouse.X - Bar.AbsolutePosition.X) / Bar.AbsoluteSize.X
 
-                    local Range = (Mouse.X - Bar.AbsolutePosition.X) / Bar.AbsoluteSize.X
+                       local Value = NewData.Value
 
-                    local Value = NewData.Value or 0
+                       if Value then
+                          Range = (Value - Min) / (Max - Min)
+                       end
+                       local Percent = math.clamp(Range, 0, 1)
+                       if NewData.Float then
+                          Value = Value or math.floor((Min + (Max - Min) * Percent) / NewData.Float) * NewData.Float
+                       else
+                          Value = Value or math.floor(Min + (Max - Min) * Percent)
+                        end
 
-                    if Value then
-                        Range = (Value - Min) / (Max - Min)
-                    end
-                    local Percent = math.clamp(Range, 0, 1)
-                    if NewData.Float then
-                        Value = Value or math.floor((Min + (Max - Min) * Percent) / NewData.Float) * NewData.Float
-                    else
-                        Value = Value or math.floor(Min + (Max - Min) * Percent)
-                    end
-
-                    SliderObject.Value.Text = Value
-                    Library.Flags[Data.Flag] = Value
+                        SliderObject.Value.Text = Value
+                        Library.Flags[Data.Flag] = Value
                     
-                    Library:Tween(SliderHandle, 0.1, {
-                        Position = UDim2.new(Percent, 0, 0, 0)
-                    });
+                        Library:Tween(SliderHandle, 0.1, {
+                           Position = UDim2.new(Percent, 0, 0, 0)
+                        });
+		 end;
                 end;
 
                 UserInputService.InputEnded:Connect(function(Input)
