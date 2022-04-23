@@ -791,7 +791,20 @@ function Library:CreateWindow(Data)
 		local Box = {}
                 Data.Value = LoadedSettings[Data.Flag] or Data.Value;
                 Library.Flags[Data.Flag] = Data.Value;
-
+		
+		local LabelObject = Library:Create("TextLabel", {
+                    BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+                    BackgroundTransparency = 1.000;
+                    Position = UDim2.new(0.0347003154, 0, 0, 0);
+                    Size = UDim2.new(0.766561508, 0, 1, 0);
+                    ZIndex = 3;
+                    Font = Enum.Font.Gotham;
+                    Text = Data.Text;
+                    TextColor3 = Color3.fromRGB(255, 255, 255);
+                    TextSize = 14.000;
+                    TextXAlignment = Enum.TextXAlignment.Left;
+                });
+				
                 local BoxObject = Library:Create("TextButton", {
                     Parent = SelectedPage.Page;
                     BackgroundColor3 = Color3.fromRGB(54, 54, 54);
@@ -807,18 +820,7 @@ function Library:CreateWindow(Data)
                     Library:Create("UICorner", {
                         CornerRadius = UDim.new(0, 3);
                     });
-                local LabelObject = Library:Create("TextLabel", {
-                        BackgroundColor3 = Color3.fromRGB(255, 255, 255);
-                        BackgroundTransparency = 1.000;
-                        Position = UDim2.new(0.0347003154, 0, 0, 0);
-                        Size = UDim2.new(0.766561508, 0, 1, 0);
-                        ZIndex = 3;
-                        Font = Enum.Font.Gotham;
-                        Text = Data.Text;
-                        TextColor3 = Color3.fromRGB(255, 255, 255);
-                        TextSize = 14.000;
-                        TextXAlignment = Enum.TextXAlignment.Left;
-                    });
+		    LabelObject
                 });
                 
                 local InputObject = Library:Create("TextBox", {
