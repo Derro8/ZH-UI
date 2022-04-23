@@ -741,17 +741,20 @@ function Library:CreateWindow(Data)
                 });
 
                 function Toggle:Update(NewData)
-                    ToggleObject:WaitForChild("TextLabel").Text = NewData.Text;
-                    Library.Flags[Data.Flag] = NewData.State
+		    if NewData.Text then
+			ToggleObject.TextLabel.Text = NewData.Text;
+                    end
                     if NewData.Callback then
                         Data.Callback = NewData.Callback;
                     end;
                     if NewData.State then
+			Library.Flags[Data.Flag] = NewData.State
                         Library:Tween(ToggleObject.ToggleBackFrame, 0.3, {
                             BackgroundColor3 = Color3.fromRGB(56, 255, 42)
                         });
                         ToggleObject.ToggleBackFrame.ToggleSlider:TweenPosition(UDim2.new(0.4, 0, -0.25, 0), "Out", "Quad", 0.5, true);
                     elseif NewData.State == false then
+			Library.Flags[Data.Flag] = NewData.State
                         Library:Tween(ToggleObject.ToggleBackFrame, 0.3, {
                             BackgroundColor3 = Color3.fromRGB(26, 26, 26)
                         });
@@ -765,8 +768,6 @@ function Library:CreateWindow(Data)
                     end);
                     Library.Flags[Data.Flag] = not Library.Flags[Data.Flag]
                     Toggle:Update({
-                        Text = Data.Text;
-                        Callback = nil;
                         State = Library.Flags[Data.Flag]
                     })
                     pcall(Data.Callback, Library.Flags[Data.Flag]);
