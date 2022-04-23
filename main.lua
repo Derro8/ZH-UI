@@ -861,7 +861,7 @@ function Library:CreateWindow(Data)
                 
                 function Box:Update(NewData)
 		  if NewData.Text then
-                     InputObject.Text = NewData.Text;
+                     BoxObject.Text = NewData.Text;
                   end
 		  if NewData.Value then
 		     Library.Flags[Data.Flag] = NewData.Value;
