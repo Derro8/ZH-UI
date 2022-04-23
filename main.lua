@@ -1370,6 +1370,7 @@ function Library:CreateWindow(Data)
                         Bar.UIGradient.Color = ColorSeq;
                         Library.Flags[Data.Flag] = NewData.Color;
                         ColorPickerObject.OutputColor.BackgroundColor3 = NewData.Color;
+			pcall(Data.Callback, Library.Flags[Data.Flag]);
                     end
 		    if NewData.Location then
                         local Range = (NewData.Location - Bar.AbsolutePosition.X) / Bar.AbsoluteSize.X
@@ -1385,8 +1386,8 @@ function Library:CreateWindow(Data)
                             Library:Tween(BrightnessSliderHandle, 0.1, {
                                 Position = UDim2.new(Percent, 0, 0)
                             });
+			    pcall(Data.Callback, Library.Flags[Data.Flag]);
                         end;
-			pcall(Data.Callback, Library.Flags[Data.Flag]);
                     end;
 
                     
