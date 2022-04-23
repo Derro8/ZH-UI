@@ -861,12 +861,15 @@ function Library:CreateWindow(Data)
                 
                 function Box:Update(NewData)
 		  if NewData.Text then
-                  InputObject.Text = NewData.Text;
+                     InputObject.Text = NewData.Text;
                   end
+		  if NewData.Value then
+		     Library.Flags[Data.Flag] = NewData.Value;
+		     InputObject.Text = NewData.Value;
+		  end
                   if NewData.Callback then
                      Data.Callback = NewData.Callback
                   end
-                  pcall(NewData.Callback,Data.Text)
                 end
                 
                 return Box
