@@ -860,8 +860,9 @@ function Library:CreateWindow(Data)
                 end
                 
                 function Box:Update(NewData)
+		  if NewData.Text then
                   InputObject.Text = NewData.Text;
-                  Data.Text = NewData.Text;
+                  end
                   if NewData.Callback then
                      Data.Callback = NewData.Callback
                   end
@@ -961,7 +962,9 @@ function Library:CreateWindow(Data)
                 });
 
                 function Slider:Update(NewData)
-                    SliderObject.TextLabel.Text = NewData.Text;
+		    if NewData.Text then
+			SliderObject.TextLabel.Text = NewData.Text;
+		    end
                     if NewData.Callback then
                         Data.Callback = NewData.Callback;
                     end;
@@ -972,7 +975,7 @@ function Library:CreateWindow(Data)
 
                     local Range = (Mouse.X - Bar.AbsolutePosition.X) / Bar.AbsoluteSize.X
 
-                    local Value = NewData.Value
+                    local Value = NewData.Value or 0
 
                     if Value then
                         Range = (Value - Min) / (Max - Min)
