@@ -1386,9 +1386,10 @@ function Library:CreateWindow(Data)
                                 Position = UDim2.new(Percent, 0, 0)
                             });
                         end;
+			pcall(Data.Callback, Library.Flags[Data.Flag]);
                     end;
 
-                    pcall(Data.Callback, Library.Flags[Data.Flag]);
+                    
                 end;
 
                 ColorPicker:Update({
