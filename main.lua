@@ -966,27 +966,30 @@ function Library:CreateWindow(Data)
 
                 function Slider:Update(NewData)
 		    if NewData.Text then
+			Data.Text = NewData.Text
 			SliderObject.TextLabel.Text = NewData.Text;
 		    end
                     if NewData.Callback then
                         Data.Callback = NewData.Callback;
                     end;
 		    if NewData.Min and NewData.Max then
-                       local Bar = SliderObject.SliderBack
+                        Data.Min = NewData.Min
+                        Data.Max = NewData.Max
+                        local Bar = SliderObject.SliderBack
 
-                       local Min, Max = NewData.Min, NewData.Max;
+                        local Min, Max = NewData.Min, NewData.Max;
 
-                       local Range = (Mouse.X - Bar.AbsolutePosition.X) / Bar.AbsoluteSize.X
+                        local Range = (Mouse.X - Bar.AbsolutePosition.X) / Bar.AbsoluteSize.X
 
-                       local Value = NewData.Value
+                        local Value = NewData.Value
 
-                       if Value then
+                        if Value then
                           Range = (Value - Min) / (Max - Min)
-                       end
-                       local Percent = math.clamp(Range, 0, 1)
-                       if NewData.Float then
+                        end
+                        local Percent = math.clamp(Range, 0, 1)
+                        if NewData.Float then
                           Value = Value or math.floor((Min + (Max - Min) * Percent) / NewData.Float) * NewData.Float
-                       else
+                        else
                           Value = Value or math.floor(Min + (Max - Min) * Percent)
                         end
 
@@ -1346,7 +1349,11 @@ function Library:CreateWindow(Data)
 
                 function ColorPicker:Update(NewData)
                     local Bar = ColorPickerObject.BrightnessSlider;
+					
+		    if NewData.Text then
                     ColorPickerObject.TextLabel.Text = NewData.Text;
+		    end
+					
                     local Range = (NewData.Location - Bar.AbsolutePosition.X) / Bar.AbsoluteSize.X
 
                     if NewData.Color then
