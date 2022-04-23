@@ -1353,8 +1353,7 @@ function Library:CreateWindow(Data)
 		    if NewData.Text then
                     ColorPickerObject.TextLabel.Text = NewData.Text;
 		    end
-					
-                    local Range = (NewData.Location - Bar.AbsolutePosition.X) / Bar.AbsoluteSize.X
+		    	
 
                     if NewData.Color then
                         local ColorSeq = ColorSequence.new({
