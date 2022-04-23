@@ -751,7 +751,7 @@ function Library:CreateWindow(Data)
                             BackgroundColor3 = Color3.fromRGB(56, 255, 42)
                         });
                         ToggleObject.ToggleBackFrame.ToggleSlider:TweenPosition(UDim2.new(0.4, 0, -0.25, 0), "Out", "Quad", 0.5, true);
-                    else
+                    elseif NewData.State = false
                         Library:Tween(ToggleObject.ToggleBackFrame, 0.3, {
                             BackgroundColor3 = Color3.fromRGB(26, 26, 26)
                         });
