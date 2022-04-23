@@ -741,6 +741,7 @@ function Library:CreateWindow(Data)
                 });
 
                 function Toggle:Update(NewData)
+		   task.spawn(function()
 		    if NewData.Text then
 			ToggleObject.TextLabel.Text = NewData.Text;
                     end
@@ -760,6 +761,7 @@ function Library:CreateWindow(Data)
                         });
                         ToggleObject.ToggleBackFrame.ToggleSlider:TweenPosition(UDim2.new(-0.02, 0, -0.25, 0), "Out", "Quad", 0.5, true);
                     end
+		  end)
                 end;
 
                 ToggleObject.MouseButton1Click:Connect(function()
