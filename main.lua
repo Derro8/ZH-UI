@@ -608,7 +608,7 @@ function Library:CreateWindow(Data)
             });
 	    function Section:Update(NewData)
 		if NewData.Title then
-		   SectionTitle.Title = NewData.Title
+		   SectionTitle.Text = NewData.Title
 		   Page:Update({Text = NewData.Title})
 		end
 	    end
