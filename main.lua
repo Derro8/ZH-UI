@@ -356,6 +356,18 @@ end;
 --// Create Window:
 function Library:CreateWindow(Data)
     local Window = {};
+    local WindowTitle =  Library:Create("TextLabel", {
+                Name = "Title";
+                BackgroundColor3 = Color3.fromRGB(255, 255, 255);
+                BackgroundTransparency = 1.000;
+                Position = UDim2.new(0.112499997, 0, 0, 0);
+                Size = UDim2.new(0, 426, 0, 43);
+                Font = Enum.Font.Gotham;
+                Text = not _G.DiscordInvite and Data.Title .. " | discord.gg/EAEtf82KuJ" or Data.Title .. " | " .. _G.DiscordInvite;
+                TextColor3 = Color3.fromRGB(255, 255, 255);
+                TextSize = 14.000;
+                TextXAlignment = Enum.TextXAlignment.Left;
+            })
     Library.Window = Library:Create("ScreenGui", {
         Name = Library:RandomString(50);
         Parent = game.CoreGui;
@@ -454,20 +466,15 @@ function Library:CreateWindow(Data)
                     CornerRadius = UDim.new(0, 3);
                 });
             });
-            Library:Create("TextLabel", {
-                Name = "Title";
-                BackgroundColor3 = Color3.fromRGB(255, 255, 255);
-                BackgroundTransparency = 1.000;
-                Position = UDim2.new(0.112499997, 0, 0, 0);
-                Size = UDim2.new(0, 426, 0, 43);
-                Font = Enum.Font.Gotham;
-                Text = not _G.DiscordInvite and Data.Title .. " | discord.gg/EAEtf82KuJ" or Data.Title .. " | " .. _G.DiscordInvite;
-                TextColor3 = Color3.fromRGB(255, 255, 255);
-                TextSize = 14.000;
-                TextXAlignment = Enum.TextXAlignment.Left;
-            })
+           WindowTitle
         });
     });
+    function Window:Update(NewData)
+	 if NewData.Text then
+	     Data.Text = NewData.Text
+	     WindowTitle.Text = NewData.Text
+	 end
+    end
     Library:Dropshadow(Library.Window.MainFrame, {
         HolderPosition = UDim2.new(-0.013, 0, -0.023, 0);
         HolderSize = UDim2.new(1.027, 0, 1.047, 0);
