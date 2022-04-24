@@ -993,7 +993,6 @@ function Library:CreateWindow(Data)
                           Value = Value or math.floor(Min + (Max - Min) * Percent)
                         end
 
-                        SliderObject.Value.Text = Value
                         Library.Flags[Data.Flag] = Value
                     
                         Library:Tween(SliderHandle, 0.1, {
@@ -1019,7 +1018,8 @@ function Library:CreateWindow(Data)
 
                 SliderHandle.MouseButton1Down:Connect(function()
                     ButtonDown = true;
-                    while ButtonDown do
+                    while ButtonDown and SliderObject.Value.Text~=math.floor((Min + (Max - Min) * Percent) / Data.Float) * Data.Float do
+			SliderObject.Value.Text = math.floor((Min + (Max - Min) * Percent) / NewData.Float) * NewData.Float
                         Slider:Update({
                             Text = Data.Text;
                             Callback = nil;
