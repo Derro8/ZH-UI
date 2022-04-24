@@ -1019,7 +1019,7 @@ function Library:CreateWindow(Data)
                 SliderHandle.MouseButton1Down:Connect(function()
                     ButtonDown = true;
                     while ButtonDown and SliderObject.Value.Text~=math.floor((Min + (Max - Min) * Percent) / Data.Float) * Data.Float do
-			SliderObject.Value.Text = math.floor((Min + (Max - Min) * Percent) / NewData.Float) * NewData.Float
+			SliderObject.Value.Text = math.floor((Min + (Max - Min) * Percent) / Data.Float) * Data.Float
                         Slider:Update({
                             Text = Data.Text;
                             Callback = nil;
