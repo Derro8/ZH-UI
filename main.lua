@@ -663,7 +663,9 @@ function Library:CreateWindow(Data)
                 });
 
                 function Button:Update(NewData)
-                    ButtonObject.Text = NewData.Text;
+		    if NewData.Text then
+			ButtonObject.Text = NewData.Text;
+		    end
                     if NewData.Callback then
                         Data.Callback = NewData.Callback;
                     end
