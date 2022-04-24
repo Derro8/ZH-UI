@@ -1127,12 +1127,12 @@ function Library:CreateWindow(Data)
                     if NewData.Callback then
                         Data.Callback = NewData.Callback;
                     end;
+		    if NewData.List then
                     for i,v in pairs(List:GetChildren()) do
                         if not v:IsA("UIListLayout") then
                             v:Destroy();
                         end;
                     end;
-		    if NewData.List then
                     for i,v in pairs(NewData.List) do
                         local Button = Library:Create("TextButton", {
                             Text = v;
