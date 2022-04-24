@@ -1128,6 +1128,7 @@ function Library:CreateWindow(Data)
                         Data.Callback = NewData.Callback;
                     end;
 		    if NewData.List then
+		    print(NewData.List)
                     for i,v in pairs(List:GetChildren()) do
                         if not v:IsA("UIListLayout") then
                             v:Destroy();
