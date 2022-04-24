@@ -993,6 +993,7 @@ function Library:CreateWindow(Data)
                           Value = Value or math.floor(Min + (Max - Min) * Percent)
                         end
 
+			SliderObject.Value.Text = Value
                         Library.Flags[Data.Flag] = Value
                     
                         Library:Tween(SliderHandle, 0.1, {
