@@ -972,14 +972,13 @@ function Library:CreateWindow(Data)
                     if NewData.Callback then
                         Data.Callback = NewData.Callback;
                     end;
-		    if NewData.Min and NewData.Max and SliderObject.Value.Text~=math.floor((Min + (Max - Min) * Percent) / NewData.Float) * NewData.Float then
+		    local Range = (Mouse.X - Bar.AbsolutePosition.X) / Bar.AbsoluteSize.X
+		    if NewData.Min and NewData.Max and SliderObject.Value.Text~=math.floor((NewData.Min + (NewData.Max - NewData.Min) * math.clamp(Range, 0, 1)) / NewData.Float) * NewData.Float then
                         Data.Min = NewData.Min
                         Data.Max = NewData.Max
                         local Bar = SliderObject.SliderBack
 
                         local Min, Max = NewData.Min, NewData.Max;
-
-                        local Range = (Mouse.X - Bar.AbsolutePosition.X) / Bar.AbsoluteSize.X
 
                         local Value = NewData.Value
 
