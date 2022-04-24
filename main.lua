@@ -534,7 +534,11 @@ function Library:CreateWindow(Data)
         })
 	function Page:Update(NewData)
 	   if NewData.Text then
+	      local tmpPage = Library.Pages[Data.Text]
 	      PageButton.Text = NewData.Text
+	      Library.Pages[Data.Text] = nil
+	      Library.Pages[NewData.Text] = tmpPage
+	      Data.Text = NewData.Text
 	   end
 	end
         Library.Pages[Data.Text] = {
