@@ -972,7 +972,7 @@ function Library:CreateWindow(Data)
                     if NewData.Callback then
                         Data.Callback = NewData.Callback;
                     end;
-		    if NewData.Min and NewData.Max then
+		    if NewData.Min and NewData.Max and SliderObject.Value.Text~=math.floor((Min + (Max - Min) * Percent) / NewData.Float) * NewData.Float then
                         Data.Min = NewData.Min
                         Data.Max = NewData.Max
                         local Bar = SliderObject.SliderBack
@@ -1019,8 +1019,7 @@ function Library:CreateWindow(Data)
 
                 SliderHandle.MouseButton1Down:Connect(function()
                     ButtonDown = true;
-                    while ButtonDown and SliderObject.Value.Text~=math.floor((Min + (Max - Min) * Percent) / Data.Float) * Data.Float do
-			SliderObject.Value.Text = math.floor((Min + (Max - Min) * Percent) / Data.Float) * Data.Float
+                    while ButtonDown do
                         Slider:Update({
                             Text = Data.Text;
                             Callback = nil;
