@@ -532,7 +532,11 @@ function Library:CreateWindow(Data)
                 CornerRadius = UDim.new(0, 3);
             });
         })
-
+	function Page:Update(NewData)
+	   if NewData.Text then
+	      PageButton.Text = NewData.Text
+	   end
+	end
         Library.Pages[Data.Text] = {
             Page = Library:Create("ScrollingFrame", {
                 Parent = Library.Window.MainFrame.Page;
@@ -579,17 +583,7 @@ function Library:CreateWindow(Data)
         --// Section:
         function Page:Section(Data)
             local Section = {};
-            local SectionObject = Library:Create("Frame", {
-                Parent = SelectedPage.Page;
-                BackgroundColor3 = Color3.fromRGB(26, 26, 26);
-                BorderSizePixel = 0;
-                Position = UDim2.new(0.0271903332, 0, 0, 0);
-                Size = UDim2.new(0, 317, 0, 32);
-                ZIndex = 3;
-                Library:Create("UICorner", {
-                    CornerRadius = UDim.new(0, 4);
-                });
-                Library:Create("TextLabel", {
+            local SectionTitle = Library:Create("TextLabel", {
                     BackgroundColor3 = Color3.fromRGB(255, 255, 255);
                     BackgroundTransparency = 1.000;
                     Selectable = true;
@@ -600,7 +594,24 @@ function Library:CreateWindow(Data)
                     TextColor3 = Color3.fromRGB(255, 255, 255);
                     TextSize = 14.000;
                 });
+            local SectionObject = Library:Create("Frame", {
+                Parent = SelectedPage.Page;
+                BackgroundColor3 = Color3.fromRGB(26, 26, 26);
+                BorderSizePixel = 0;
+                Position = UDim2.new(0.0271903332, 0, 0, 0);
+                Size = UDim2.new(0, 317, 0, 32);
+                ZIndex = 3;
+                Library:Create("UICorner", {
+                    CornerRadius = UDim.new(0, 4);
+                });
+		SectionTitle
             });
+	    function Section:Update(NewData)
+		if NewData.Title then
+		   SectionTitle.Title = NewData.Title
+		   Page:Update({Text = NewData.Title})
+		end
+	    end
 
             Library:Dropshadow(SectionObject, {
                 HolderPosition = UDim2.new(-0.013, 0, -0.187, 0);
