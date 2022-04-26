@@ -684,6 +684,7 @@ function Library:CreateWindow(Data)
 			if Library.Binds[Data.Key] then
 				Library.Binds[Data.Key] = nil
 			end 
+			print(NewData.Key)
 			Library.Binds[NewData.Key] = Data.Callback
 		    end
                 end;
