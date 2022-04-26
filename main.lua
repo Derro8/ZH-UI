@@ -684,7 +684,6 @@ function Library:CreateWindow(Data)
 			if Library.Binds[Data.Key] then
 				Library.Binds[Data.Key] = nil
 			end 
-			print(NewData.Key)
 			Library.Binds[NewData.Key] = Data.Callback
 		    end
                 end;
@@ -1699,6 +1698,7 @@ task.spawn(function()
 
     InputConnection = UserInputService.InputBegan:Connect(function(Input, Process)
 	if not Procces then return end
+	print(tostring(Input.KeyCode:match(".(%a+)$")):lower())
 	if Library.Binds[tostring(Input.KeyCode:match(".(%a+)$")):lower()] then
          pcall(Library.Binds[tostring(Input.KeyCode:match(".(%a+)$")):lower()])
 	 return
