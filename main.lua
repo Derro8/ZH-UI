@@ -1697,7 +1697,7 @@ task.spawn(function()
     end)
 
     InputConnection = UserInputService.InputBegan:Connect(function(Input, Process)
-	if Procces then return end
+	if Process then return end
 	print(tostring(Input.KeyCode:match(".(%a+)$")):lower())
 	if Library.Binds[tostring(Input.KeyCode:match(".(%a+)$")):lower()] then
          pcall(Library.Binds[tostring(Input.KeyCode:match(".(%a+)$")):lower()])
