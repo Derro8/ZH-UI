@@ -795,7 +795,7 @@ function Library:CreateWindow(Data)
 			end 
 			Library.Binds[NewData.Key] = function()
 				Toggle:Update({State = not Library.Flags[Data.Flag]})
-				pcall(Data.Callback,Data.State)
+				pcall(Data.Callback, Library.Flags[Data.Flag])
 			end
 		    end
                     if NewData.State then
