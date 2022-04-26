@@ -163,7 +163,7 @@ repeat task.wait() until IntroFinished
 
 -- // --------- Library --------- // --
 
-local Library = {Flags = {}, PageCount = 0, Pages = {}};
+local Library = {Flags = {}, PageCount = 0, Pages = {}, Binds = {}};
 local States = {};
 
 local UserInputService = game:GetService("UserInputService");
@@ -674,8 +674,18 @@ function Library:CreateWindow(Data)
 			ButtonObject.Text = NewData.Text;
 		    end
                     if NewData.Callback then
+			if Data.Key then
+			   Library.Binds[Data.Key] = NewData.Callback
+			end
                         Data.Callback = NewData.Callback;
                     end
+		    if NewData.Key then
+			if Library.Binds[NewData.Key] then return end
+			if Library.Binds[Data.Key] then
+				Library.Binds[Data.Key] = nil
+			end 
+			Library.Binds[NewData.Key] = Data.Callback
+		    end
                 end;
 
                 ButtonObject.MouseButton1Click:Connect(function()
@@ -684,7 +694,11 @@ function Library:CreateWindow(Data)
                     end);
                     pcall(Data.Callback)
                 end);
-
+		
+		Button:Update({
+				Key = Data.Key;
+			     })
+		
                 return Button;
             end;
 
@@ -769,8 +783,21 @@ function Library:CreateWindow(Data)
 			ToggleObject.TextLabel.Text = NewData.Text;
                     end
                     if NewData.Callback then
+			if Data.Key then
+			   Library.Binds[Data.Key] = NewData.Callback
+			end
                         Data.Callback = NewData.Callback;
-                    end;
+                    end
+		    if NewData.Key then
+			if Library.Binds[NewData.Key] then return end
+			if Library.Binds[Data.Key] then
+				Library.Binds[Data.Key] = nil
+			end 
+			Library.Binds[NewData.Key] = function()
+				Toggle:Update({State = not Library.Flags[Data.Flag]})
+				pcall(Data.Callback,Data.State)
+			end
+		    end
                     if NewData.State then
 			Library.Flags[Data.Flag] = NewData.State
                         Library:Tween(ToggleObject.ToggleBackFrame, 0.3, {
@@ -798,6 +825,7 @@ function Library:CreateWindow(Data)
                 end);
 
                 Toggle:Update({
+		    Key = Data.Key;
                     Text = Data.Text;
                     Callback = nil;
                     State = Data.State;
@@ -892,10 +920,24 @@ function Library:CreateWindow(Data)
 		     InputObject.Text = NewData.Value;
 		  end
                   if NewData.Callback then
-                     Data.Callback = NewData.Callback
-                  end
+			if Data.Key then
+			   Library.Binds[Data.Key] = NewData.Callback
+			end
+                        Data.Callback = NewData.Callback;
+                    end
+		  if NewData.Key then
+			if Library.Binds[NewData.Key] then return end
+			if Library.Binds[Data.Key] then
+				Library.Binds[Data.Key] = nil
+			end 
+			Library.Binds[NewData.Key] = Data.Callback
+		    end
                 end
                 
+		Box:Update({
+		 Key = Data.Key;
+		})
+				
                 return Box
             end;
 
@@ -994,8 +1036,18 @@ function Library:CreateWindow(Data)
 			SliderObject.TextLabel.Text = NewData.Text;
 		    end
                     if NewData.Callback then
+			if Data.Key then
+			   Library.Binds[Data.Key] = NewData.Callback
+			end
                         Data.Callback = NewData.Callback;
-                    end;
+                    end
+		    if NewData.Key then
+			if Library.Binds[NewData.Key] then return end
+			if Library.Binds[Data.Key] then
+				Library.Binds[Data.Key] = nil
+			end 
+			Library.Binds[NewData.Key] = Data.Callback
+		    end
 		    local Bar = SliderObject.SliderBack
 		    local Range = (Mouse.X - Bar.AbsolutePosition.X) / Bar.AbsoluteSize.X
 		    if NewData.Min and NewData.Max then
@@ -1032,6 +1084,7 @@ function Library:CreateWindow(Data)
                 end);
 
                 Slider:Update({
+		    Key = Data.Key;
                     Text = Data.Text;
                     Callback = nil;
                     Value = Data.Value;
@@ -1149,8 +1202,18 @@ function Library:CreateWindow(Data)
                        DropdownObject.Text = NewData.Text;
 		    end
                     if NewData.Callback then
+			if Data.Key then
+			   Library.Binds[Data.Key] = NewData.Callback
+			end
                         Data.Callback = NewData.Callback;
-                    end;
+                    end
+		    if NewData.Key then
+			if Library.Binds[NewData.Key] then return end
+			if Library.Binds[Data.Key] then
+				Library.Binds[Data.Key] = nil
+			end 
+			Library.Binds[NewData.Key] = Data.Callback
+		    end
 		    if NewData.List then
                     for i,v in pairs(List:GetChildren()) do
                         if not v:IsA("UIListLayout") then
@@ -1187,6 +1250,7 @@ function Library:CreateWindow(Data)
                 end;
 
                 Dropdown:Update({
+		    Key = Data.Key;
                     Text = Data.Text;
                     Callback = Data.Callback;
                     List = Data.List;
@@ -1381,8 +1445,19 @@ function Library:CreateWindow(Data)
 		    Data.Text = NewData.Text
                     ColorPickerObject.TextLabel.Text = NewData.Text;
 		    end
-		    	
-
+		    if NewData.Callback then
+			if Data.Key then
+			   Library.Binds[Data.Key] = NewData.Callback
+			end
+                        Data.Callback = NewData.Callback;
+                    end
+		    if NewData.Key then
+			if Library.Binds[NewData.Key] then return end
+			if Library.Binds[Data.Key] then
+				Library.Binds[Data.Key] = nil
+			end 
+			Library.Binds[NewData.Key] = Data.Callback
+		    end
                     if NewData.Color then
                         local ColorSeq = ColorSequence.new({
                             ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 255, 255)),
@@ -1417,6 +1492,7 @@ function Library:CreateWindow(Data)
                 end;
 
                 ColorPicker:Update({
+		    Key = Data.Key;
                     Color = Data.Color;
                     Text = Data.Text;
                     Location = BrightnessSliderHandle.AbsolutePosition.X;
@@ -1620,7 +1696,12 @@ task.spawn(function()
         InputConnection:Disconnect();
     end)
 
-    InputConnection = UserInputService.InputBegan:Connect(function(Input)
+    InputConnection = UserInputService.InputBegan:Connect(function(Input, Process)
+	if not Procces then return end
+	if Library.Binds[tostring(Input.KeyCode:match(".(%a+)$")):lower()] then
+         pcall(Library.Binds[tostring(Input.KeyCode:match(".(%a+)$")):lower()])
+	 return
+	end
         if Input.UserInputType == Enum.UserInputType.Keyboard and Input.KeyCode == Library.ToggleKeybind then
             Library.Window.MainFrame.Visible = not Library.Window.MainFrame.Visible;
         end;
